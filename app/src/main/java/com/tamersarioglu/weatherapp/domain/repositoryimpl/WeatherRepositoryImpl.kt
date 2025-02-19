@@ -10,10 +10,8 @@ class WeatherRepositoryImpl @Inject constructor(
     private val api: WeatherApi,
     private val mapper: WeatherMapper
 ) : WeatherRepository {
-    override suspend fun getWeather(location: String): Result<WeatherInfo> = try {
-        val response = api.getWeather(location)
-        Result.success(mapper.mapToDomain(response))
-    } catch (e: Exception) {
-        Result.failure(e)
-    }
+    override suspend fun getWeather(location: String): Result<WeatherInfo> =
+        runCatching {
+            api.getWeather(location).let(mapper::mapToDomain)
+        }
 }

@@ -20,8 +20,12 @@ fun WeatherContent(
     temperature: Int,
     description: String,
     modifier: Modifier = Modifier,
-    observationTime:String
+    observationTime:String,
+    isChipsVisible: Boolean
 ) {
+
+    val dynamicFontSize = if (isChipsVisible) 56.sp else 72.sp
+
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -49,7 +53,7 @@ fun WeatherContent(
         Text(
             text = "${temperature}°C",
             color = Color.White,
-            fontSize = 72.sp,
+            fontSize = dynamicFontSize,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(16.dp)
         )

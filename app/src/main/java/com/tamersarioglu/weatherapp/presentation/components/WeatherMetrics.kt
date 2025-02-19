@@ -29,7 +29,7 @@ fun WeatherMetrics(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 24.dp),
+            .padding(bottom = 24.dp),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         MetricItem(

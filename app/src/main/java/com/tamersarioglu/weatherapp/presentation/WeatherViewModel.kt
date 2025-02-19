@@ -16,6 +16,7 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase
 ) : ViewModel() {
+
     private val _state = MutableStateFlow(WeatherState())
     val state: StateFlow<WeatherState> = _state.asStateFlow()
 
@@ -24,9 +25,8 @@ class WeatherViewModel @Inject constructor(
             _state.update { it.copy(isLoading = true) }
             getWeatherUseCase(location)
                 .onSuccess { weatherInfo ->
-                    val todayHourlyForecasts = weatherInfo.forecast.firstOrNull()?.hourlyForecasts ?: emptyList()
+                    val todayHourlyForecasts = weatherInfo.forecast.firstOrNull()?.hourlyForecasts.orEmpty()
                     val forecastWithoutToday = weatherInfo.forecast.drop(1)
-
                     _state.update {
                         it.copy(
                             isLoading = false,
